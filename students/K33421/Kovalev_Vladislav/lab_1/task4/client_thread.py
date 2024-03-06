@@ -3,8 +3,6 @@ import socket
 
 
 class ClientThread:
-    _server: "Server"
-
     _client_socket: socket.socket
 
     address: tuple
@@ -37,29 +35,22 @@ class ClientThread:
                 if not self._is_running:
                     break
 
-                self._try_receiving_and_broadcasting_message_from_remote_client()
+                try:
+                    message = self._client_socket.recv(1024).decode()
+
+                    if not message:
+                        self._shot_down_self_gracefully()
+                    else:
+                        self._broadcast(message)
+
+                except socket.timeout:
+                    pass
 
         except:
             pass
 
         finally:
             self._shot_down_self_gracefully()
-
-    def _try_receiving_and_broadcasting_message_from_remote_client(self) -> None:
-        try:
-            message = self._try_receiving_new_message()
-
-            if not message:
-                self._shot_down_self_gracefully()
-                return
-            else:
-                self._broadcast(message)
-
-        except socket.timeout:
-            pass
-
-    def _try_receiving_new_message(self) -> str:
-        return self._client_socket.recv(1024).decode()
 
     # broadcasting ------------------------------------------------------------------
     def _broadcast(self, message: str) -> None:

@@ -28,7 +28,6 @@ markdown_extensions:
 nav:
   - "№1: Сокеты":
       - lab1/index.md
-      - lab1/base.md
       - lab1/task1.md
       - lab1/task2.md
       - lab1/task3.md

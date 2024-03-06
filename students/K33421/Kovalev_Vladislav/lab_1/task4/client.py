@@ -19,6 +19,7 @@ class Client:
         try:
             name = input()
             self._name = name
+            self.connect_to_chat()
 
         except:
             sys.exit(0)
@@ -34,26 +35,23 @@ class Client:
                 if self._server_closed:
                     break
 
-                self._try_getting_message_from_server()
+                try:
+                    message = self._client_socket.recv(1024)
+
+                    if not message:
+                        print("Сервер закрыл соединение!")
+                        self._server_closed = True
+
+                    print(message.decode())
+
+                except socket.timeout:
+                    pass
 
         except KeyboardInterrupt:
             pass
 
         finally:
             self._exit()
-
-    def _try_getting_message_from_server(self) -> None:
-        try:
-            message = self._client_socket.recv(1024)
-
-            if not message:
-                print("Сервер закрыл соединение!")
-                self._server_closed = True
-
-            print(message.decode())
-
-        except socket.timeout:
-            pass
 
     def _setup_client_socket(self) -> None:
         self._client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -85,5 +83,5 @@ class Client:
 
 
 if __name__ == "__main__":
-    client = Client()
-    client.connect_to_chat()
+ Client()
+

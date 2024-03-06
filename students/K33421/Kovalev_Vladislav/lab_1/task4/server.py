@@ -13,13 +13,14 @@ class Server:
 
     _number_of_concurrent_connections: int = 10
 
-    _clients: [ClientThread]
+    _clients: list[ClientThread]
 
     # init ------------------------------------------------------------------
 
     def __init__(self) -> None:
         self._clients = []
         self._set_up_server()
+        self.start_cycle()
         print("Server is running...")
 
     # setup ------------------------------------------------------------------
@@ -34,24 +35,20 @@ class Server:
         try:
             while True:
                 print("try to connect client")
-                self._try_to_get_new_client_connection()
+                try:
+                    client_sock, address = self._server_socket.accept()
+                    client = ClientThread(self, client_sock, address)
+                    self._clients.append(client)
+                    client.start_receiving_messages()
+
+                except socket.timeout:
+                    pass
 
         finally:
             self.exit()
 
-    def _try_to_get_new_client_connection(self) -> None:
-        try:
-            client_sock, address = self._server_socket.accept()
-            client = ClientThread(self, client_sock, address)
-            self._clients.append(client)
-            client.start_receiving_messages()
-
-        except socket.timeout:
-            pass
-
     # Exiting ------------------------------------------------------------------
     def client_disconnected(self, client: ClientThread) -> None:
-        print(f'{client.address} ползователь покинул чат ')
         self._clients.remove(client)
 
     def exit(self) -> None:
@@ -76,5 +73,5 @@ class Server:
 
 
 if __name__ == "__main__":
-    server = Server()
-    server.start_cycle()
+    Server()
+

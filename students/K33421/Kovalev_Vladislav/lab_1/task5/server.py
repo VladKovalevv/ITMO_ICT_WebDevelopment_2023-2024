@@ -27,6 +27,7 @@ class MyHTTPServer:
         self._server_host = host
         self._server_port = port
         self._serve_forever()
+        self.serve()
         print("...Server is running...")
 
     def _serve_forever(self) -> None:
@@ -148,5 +149,5 @@ class MyHTTPServer:
 if __name__ == "__main__":
     host = "127.0.0.1"
     port = 8080
-    serv = MyHTTPServer(host, port)
-    serv.serve()
+    MyHTTPServer(host, port)
+
