@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <ul>
+    {% for subject in subjects %}
+      <li>
+        <a href="{% url 'homeworks.index' subject_id=subject.id %}">{{ subject.name }}</a>
+        <div></div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

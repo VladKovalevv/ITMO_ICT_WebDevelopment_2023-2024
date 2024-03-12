@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Journal</title>
+</head>
+<body>
+  {% load custom_filters %}
+  <header>
+    {% if user.is_authenticated %}
+    <form action="/logout">
+      <button type="submit">Logout</button>
+    </form>
+
+    <div>----------</div>
+    <h2>{{ user.first_name }} {{ user.last_name }} {% if user.is_teacher %}(Учитель){% else %}(Ученик){% endif %}</h2>
+    <div>----------</div>
+    {% if user.is_teacher %}
+      <h2>📖 Журнал</h2>
+    {% else %}
+    <h2>🎓 Предметы и домашние задания</h2>
+    {% endif %}
+    {% endif %}
+    <div>----------</div>
+  </header>
+  <div>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
