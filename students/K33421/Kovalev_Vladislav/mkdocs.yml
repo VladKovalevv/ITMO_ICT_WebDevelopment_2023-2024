@@ -33,3 +33,5 @@ nav:
       - lab1/task3.md
       - lab1/task4.md
       - lab1/task5.md
+  - "№1:Доска домашних заданий":
+      - lab1/index.md
