@@ -6,6 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/lab_2/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/lab_3/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/djangoProject1/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/lab3-4/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/pythonProject/.venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 (Kovalev_Vladislav)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
