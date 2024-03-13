@@ -15,10 +15,10 @@
     <div>----------</div>
     <h2>{{ user.first_name }} {{ user.last_name }} {% if user.is_teacher %}(Учитель){% else %}(Ученик){% endif %}</h2>
     <div>----------</div>
+    <button onclick="window.location.href='{% url 'home' %}';">Все предметы</button>
+    <a> / </a>
     {% if user.is_teacher %}
-      <h2>📖 Журнал</h2>
-    {% else %}
-    <h2>🎓 Предметы и домашние задания</h2>
+      <button onclick="window.location.href='{% url 'journal' %}';">Журнал</button>
     {% endif %}
     {% endif %}
     <div>----------</div>
